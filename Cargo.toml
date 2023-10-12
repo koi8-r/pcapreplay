@@ -1,0 +1,28 @@
+[package]
+name = "pcapreply"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "act"
+path = "src/act.rs"
+
+[dependencies]
+#async-trait = "0.1.73"
+#futures = "0.3.28"
+#tokio = { version = "1.33.0", features = [
+#    # https://docs.rs/tokio/latest/tokio/#feature-flags
+#    "rt",
+#    #    "rt-multi-thread",
+#    "io-util",
+#    "io-std",
+#    "net",
+#    "time",
+#    "process",
+#    "macros",
+#    "sync",
+#    "signal",
+#    "parking_lot",
+#]}
