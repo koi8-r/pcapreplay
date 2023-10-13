@@ -9,7 +9,16 @@ edition = "2021"
 name = "act"
 path = "src/act.rs"
 
+[[bin]]
+name = "lpcap"
+path = "src/lpcap/main.rs"
+
 [dependencies]
+clap = {version = "4.4.6", features = ["derive",] }
+pcap = {version = "1.1.0", features = [
+#    "tokio",
+#    "futures",
+]}
 #async-trait = "0.1.73"
 #futures = "0.3.28"
 #tokio = { version = "1.33.0", features = [
