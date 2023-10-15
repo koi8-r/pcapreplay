@@ -1,3 +1,6 @@
+mod gen ;
+mod reader ;
+
 use clap::Parser ;  // https://docs.rs/clap/latest/clap/struct.Arg.html
 
 #[derive(Debug, Parser)]

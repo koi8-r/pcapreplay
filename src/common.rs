@@ -1,1 +1,0 @@
-pub const PCAP_FILE_MAGIC:u32 = 0xA1B2C3D4 ;

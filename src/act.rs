@@ -1,4 +1,3 @@
-mod common ;
 mod models ;
 
 use std::io ;
@@ -82,7 +81,7 @@ impl Act for FileHdrEv {
             u32::from_le_bytes(buf[20..24].try_into().unwrap()),
         ) ;
         println!("magic={magic} version={major}.{minor}") ;
-        assert_eq!(common::PCAP_FILE_MAGIC, magic) ;
+        assert_eq!(0xA1B2C3D4, magic) ;
         Box::new(PktHdrEv{ hdr: models::PcapFileHeader{
             magic, major, minor, tz, accuracy, snap_len, link_type,
         }})

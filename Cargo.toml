@@ -13,25 +13,38 @@ path = "src/act.rs"
 name = "lpcap"
 path = "src/lpcap/main.rs"
 
+[[bin]]
+name = "pcapcat"
+path = "src/pkt/pcap/main.rs"
+
+[[bin]]
+name = "readpcap"
+path = "src/lpcap/reader.rs"
+
+[[bin]]
+name = "gen"
+path = "src/lpcap/gen.rs"
+
 [dependencies]
 clap = {version = "4.4.6", features = ["derive",] }
 pcap = {version = "1.1.0", features = [
-#    "tokio",
+    "tokio",
 #    "futures",
+    "capture-stream",
 ]}
-#async-trait = "0.1.73"
+async-trait = "0.1.73"
 #futures = "0.3.28"
-#tokio = { version = "1.33.0", features = [
-#    # https://docs.rs/tokio/latest/tokio/#feature-flags
+tokio = { version = "1.33.0", features = [
+# https://docs.rs/tokio/latest/tokio/#feature-flags
 #    "rt",
-#    #    "rt-multi-thread",
+#    # "rt-multi-thread",
 #    "io-util",
 #    "io-std",
 #    "net",
 #    "time",
 #    "process",
 #    "macros",
-#    "sync",
+    "sync",
 #    "signal",
 #    "parking_lot",
-#]}
+]}
