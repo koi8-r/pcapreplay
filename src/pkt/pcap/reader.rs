@@ -22,3 +22,9 @@ impl<'a> PcapRead for PcapReader<'a> {
         PcapPacket::from_reader(self.cap.reader)
     }
 }
+impl<'a> Iterator for PcapReader<'a> {
+    type Item = PcapPacket ;
+    fn next(&mut self) -> Option<Self::Item> {  // todo: None on EOF
+        todo!()
+    }
+}

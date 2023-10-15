@@ -16,6 +16,9 @@ path = "src/lpcap/main.rs"
 [[bin]]
 name = "pcapcat"
 path = "src/pkt/pcap/main.rs"
+[[bin]]
+name = "pcapcat-refac"
+path = "src/pkt/pcap/refac.rs"
 
 [[bin]]
 name = "readpcap"

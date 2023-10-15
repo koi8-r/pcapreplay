@@ -1,3 +1,4 @@
+use std::io::ErrorKind::UnexpectedEof ;
 pub const PCAP_FILE_MAGIC:u32 = 0xA1B2C3D4 ;
 
 #[derive(Debug, Copy, Clone)]
@@ -32,16 +33,24 @@ pub struct PcapPacket {
 pub trait FromReader {
     fn from_reader(reader: &mut dyn std::io::Read) -> Self ;
 }
-impl From<&mut dyn std::io::Read> for PcapPacket {
-    fn from(reader: &mut dyn std::io::Read) -> Self {
-        Self::from_reader(reader)
-    }
-}
+// impl From<&mut dyn std::io::Read> for PcapPacket {
+//     fn from(reader: &mut dyn std::io::Read) -> Option<Self> {
+//         Self::from_reader(reader)
+//     }
+// }
 impl FromReader for PcapPacket {
     fn from_reader(reader: &mut dyn std::io::Read) -> Self {
         let mut buf: [u8; 16] = [0; 16] ;
         // todo: return Option::None on EOF
-        reader.read_exact(&mut buf).expect("err: read pkt hdr") ;
+        match reader.read_exact(&mut buf) {
+            Ok(_) => Ok(()),
+            Err(e) if e.kind() == UnexpectedEof => {
+                Err(e)
+            },
+            Err(e) => Err(e),
+        }
+        .expect("err: read pkt hdr")
+        ;
         let hdr = PcapPacketHeader{
             ts: u32::from_le_bytes(buf[0..4].try_into().unwrap()),
             us: u32::from_le_bytes(buf[4..8].try_into().unwrap()),
@@ -51,7 +60,7 @@ impl FromReader for PcapPacket {
         println!("read body {}b", hdr.cap_len) ;
         let mut body = vec![0u8; hdr.cap_len] ;
         reader.read_exact(body.as_mut_slice()).expect("err: read pkt body") ;
-        PcapPacket{ header: hdr, data: body }
+        PcapPacket{ header: hdr, data: body }  // todo: return Options::Some or Option::None on EOF
     }
 }
 impl FromReader for PcapFileHeader {
